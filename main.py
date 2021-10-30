@@ -334,6 +334,8 @@ input()
 
 
 def theGame():
+    intro()
+    beginnings()
     firstFightSequence()
 
 
