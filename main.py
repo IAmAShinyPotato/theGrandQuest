@@ -1,6 +1,6 @@
 import time
 import sys
-
+import random
 
 # delaying print so characters come out one at a time
 def delay_print(s, t):
@@ -176,7 +176,7 @@ def firstFightSequence():
     while cade.health > 0:
 
         # player turn
-        if firstFightTurn % 2 == 0:
+        if firstFightTurn == "parker":
             clearScreen()
             print(f"""
                               Cade
@@ -213,15 +213,29 @@ def firstFightSequence():
 
                 firstAttackOption = input("\nWhat will you do? ")
                 if firstAttackOption == "1":
-                    cade.takeDamage(5)
-                    firstFightSequence()
+                    firstAttackRoll = random.randint(0, 100)
+                    if firstAttackRoll > 80:
+                        delay_print("\nCritical Hit!\nYou hit the enemy right in the throat.\n", .05)
+                        delay_print("20 dmg.", .05)
+                        cade.takeDamage(20)
+                        input()
+                    elif firstAttackRoll > 20:
+                        delay_print("\nYou stab the enemy.\n", .05)
+                        delay_print("10 dmg.", .05)
+                        cade.takeDamage(10)
+                        input()
+                    else:
+                        delay_print("\nA swing and a miss!\n", .05)
+                        delay_print("0 dmg.", .05)
+                        input()
+
                 elif firstAttackOption == "2":
-                    firstFightSequence()
+                    continue
                 else:
                     print("That's not a valid option!")
                     print("(Enter)")
                     input("")
-                    firstFightSequence()
+                    continue
 
             # defense
             elif firstFightOption == "2":
@@ -240,15 +254,22 @@ def firstFightSequence():
 
                 firstDefenseOption = input("\nWhat will you do? ")
                 if firstDefenseOption == "1":
-                    print("A")
-                    input("")
+                    firstDefenseRoll = random.randint(0,100)
+                    if firstDefenseRoll > 65:
+                        delay_print("\nYou parry the enemy's attack, and manage to swipe at him.\n5 dmg.\n", .05)
+                        input()
+                        continue
+                    else:
+                        delay_print("\nYou try to parry the enemy's attack, but he kicks you in the nuts.\nYou take 5 dmg.\n", .05)
+                        parker.takeDamage(5)
+
                 elif firstDefenseOption == "2":
-                    firstFightSequence()
+                    continue
                 else:
                     print("That's not a valid option!")
                     print("(Enter)")
                     input("")
-                    firstFightSequence()
+                    continue
 
             # bag
             elif firstFightOption == "3":
@@ -266,7 +287,7 @@ def firstFightSequence():
         └─────────────────────────┘
                 """)
                 input()
-                firstFightSequence()
+                continue
 
             # escape
             elif firstFightOption == "4":
@@ -286,21 +307,33 @@ def firstFightSequence():
             """)
 
                 input()
-                firstFightSequence()
+                continue
 
         # cade turn
-        elif firstFightTurn % 2 == 1:
-            input()
+        elif firstFightTurn == "cade":
+            botFirstAttackRoll = random.randint(0,100)
+            if botFirstAttackRoll > 90:
+                delay_print("\nYou get slashed by the enemy!\n15 dmg.", .05)
+                parker.takeDamage(15)
+                input()
+            elif botFirstAttackRoll > 50:
+                delay_print("\nThe enemy swipes at you with their claws.\n5 dmg.", .05)
+                parker.takeDamage(5)
+                input()
+            else:
+                delay_print("\nYou sidestep the enemy as he swings at you.\n0 dmg.", .05)
+                input()
 
-        firstFightTurn += 1
+        if firstFightTurn == "parker":
+            firstFightTurn = "cade"
+        else:
+            firstFightTurn = "parker"
 
 
 input()
 
 
 def theGame():
-    intro()
-    beginnings()
     firstFightSequence()
 
 
