@@ -116,17 +116,10 @@ and not like this:
  │   │
  └───┘
  Generally, you will want it to be as wide as possible.
+ Ignoring these options may cause distortions of ASCII art.
+ 
+ Other than that, thanks for playing!
  (Enter)""", .02)
-            input()
-            delay_print("""
-If you're using an online compiler such as OnlineGDB or Programiz,
-you may want to set your browser size to around 70% or even lower.
-
-Ignoring these options may mean that ASCII art will be distorted.
-
-Other than that, thanks for playing!
-(Enter)
-""", .02)
             input()
             continue
         elif mainMenuOption == "4":
